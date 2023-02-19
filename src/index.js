@@ -55,7 +55,7 @@ function createMarkupForCountryInfo(country) {
   return `
     <li class="country">
     <div class="country_item">
-      <img src="${country.flags.svg}" alt="" class="flags">
+      <img src="${country.flags.svg}" alt="${country.flags.alt}" class="flags">
       <span class="country__name">${country.name.official}</span>
       </div>
       <p class="country__capital"><strong>Capital: </strong>${country.capital}</p>
@@ -72,7 +72,7 @@ function createMarkupForCountryList(countries) {
 function countryListMarkup(country) {
   return `
   <div class="country_list">
-    <img src="${country.flags.svg}" alt="" class="flags">
+    <img src="${country.flags.svg}" alt="${country.flags.svg}" class="flags">
       <span class="country__name-list">${country.name.official}</span>
       <div>
   `;
