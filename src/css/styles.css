@@ -36,3 +36,12 @@ body {
   font-size: 24px;
   font-weight: 600;
 }
+.country_item{
+  display: flex;
+  align-items: center;
+}
+.flags{
+  width: 30px;
+  height: 15px;
+  padding-right: 5px;
+}

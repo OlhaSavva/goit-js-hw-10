@@ -16,6 +16,9 @@ refs.input.addEventListener('input', debounce(onInput, DEBOUNCE_DELAY));
 function onInput(event) {
   event.preventDefault();
   const inputValue = event.target.value.trim();
+  if (inputValue === '') {
+    return;
+  }
 
   fetchCountries(inputValue)
     .then(countries => {
@@ -37,19 +40,24 @@ function onInput(event) {
         );
       }
     })
-    .catch((error) => {
+    .catch(error => {
       refs.countryList.innerHTML = '';
       refs.countryInfo.innerHTML = '';
 
-      Notify.failure(error.message)});
+      Notify.failure(error.message);
+    });
 }
 
 function createMarkupForCountryInfo(country) {
   const languages = Object.values(country.languages);
-  const languagesStr = languages.length > 1 ? languages.join(', ') : languages[0];
+  const languagesStr =
+    languages.length > 1 ? languages.join(', ') : languages[0];
   return `
     <li class="country">
-      <p class="country__name">${country.flag} ${country.name.common}</p>
+    <div class="country_item">
+      <img src="${country.flags.svg}" alt="" class="flags">
+      <span class="country__name">${country.name.official}</span>
+      </div>
       <p class="country__capital"><strong>Capital: </strong>${country.capital}</p>
       <p class="country__population"><strong>Population: </strong>${country.population}</p>
       <p class="country__languages"><strong>Languages: </strong>${languagesStr}</p>
@@ -57,13 +65,15 @@ function createMarkupForCountryInfo(country) {
   `;
 }
 
-
 function createMarkupForCountryList(countries) {
   return countries.map(country => countryListMarkup(country)).join('');
 }
 
 function countryListMarkup(country) {
   return `
-    <p class="country__name-list">${country.flag} ${country.name.common}</p>
+  <div class="country_list">
+    <img src="${country.flags.svg}" alt="" class="flags">
+      <span class="country__name-list">${country.name.official}</span>
+      <div>
   `;
 }
